@@ -1,4 +1,6 @@
-# Soving Continuous Control with Episodic Memory
+# This is a fork from the repository of paper ---- "Soving Continuous Control with Episodic Memory".
+
+
 
 PyTorch implementation of Episodic Memory Actor-Critic (EMAC).
 
