@@ -7,6 +7,7 @@ from models.utils import EpisodicReplayBuffer
 from models.TD3 import TD3
 from models.DDPG import DDPG
 from models.EMAC import EMAC
+from models.RCS import RCS
 
 from .utils import eval_policy, RewardLogger, estimate_true_q
 from .mem import MemBuffer
@@ -69,6 +70,11 @@ class Trainer:
         elif policy == "EMAC":
             kwargs["alpha"] = self.c["alpha"]
             policy = EMAC(**kwargs)
+        elif policy == "RCS":
+            kwargs["alpha"] = self.c["alpha"]
+            policy = RCS(**kwargs)
+
+            ####### configure the state abstraction #############
 
         load_model = self.c["load_model"]
         if load_model != "":

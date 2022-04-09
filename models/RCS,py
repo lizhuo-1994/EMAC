@@ -8,7 +8,7 @@ from torch.utils.tensorboard import SummaryWriter
 from .nn import Actor, Critic
 
 
-class DDPG(object):
+class RCS(object):
     def __init__(self, state_dim, action_dim, max_action, discount=0.99,
             tau=0.005, device="cuda", log_dir="tb"):
         self.actor = Actor(state_dim, action_dim, max_action).to(device)
@@ -34,6 +34,9 @@ class DDPG(object):
     def train(self, replay_buffer, batch_size=100):
         # Sample replay buffer
         state, action, next_state, reward, not_done = replay_buffer.sample(batch_size)
+
+        # do the reward shaping
+        reward = reward
 
         # Compute the target Q value
         target_Q = self.critic_target(next_state, self.actor_target(next_state))
