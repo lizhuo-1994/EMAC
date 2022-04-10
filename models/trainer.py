@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from models.utils import EpisodicReplayBuffer
+from models.utils import EpisodicReplayBuffer, RcsEpisodicReplayBuffer
 from models.TD3 import TD3
 from models.DDPG import DDPG
 from models.EMAC import EMAC
@@ -32,7 +32,7 @@ class Trainer:
         env_name = self.c["env"]
         env = gym.make(self.c["env"])
         substeps = self.c["substeps"]
-
+        
         # Logger
         tb_logger = SummaryWriter(f"{exp_dir}/tb")
         reward_logger = RewardLogger(self.c["results_dir"] + "_rewards")
@@ -56,7 +56,7 @@ class Trainer:
             "device": self.c["device"],
             "log_dir": f"{exp_dir}/tb",
         }
-
+        print('Initialize policy')
         # Initialize policy
         policy = self.c["policy"]
         if policy == "TD3":
@@ -75,7 +75,8 @@ class Trainer:
             policy = RCS(**kwargs)
 
             ####### configure the state abstraction #############
-
+        
+        print('Configured policy')
         load_model = self.c["load_model"]
         if load_model != "":
             policy.load(f"{exp_dir}/models/{load_model}")
@@ -85,13 +86,22 @@ class Trainer:
                         k=self.c["k"],
                         mem_dim=self.c["mem_dim"],
                         device=kwargs["device"])
-        replay_buffer = EpisodicReplayBuffer(state_dim, action_dim, mem,
+        
+        if policy == "RCS":
+            replay_buffer = RcsEpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],
                                              beta=self.c["beta"],
                                              start_timesteps=self.c["start_timesteps"],
                                              expl_noise=self.c["expl_noise"])
-
+        else:
+            replay_buffer = EpisodicReplayBuffer(state_dim, action_dim, mem,
+                                             device=device,
+                                             prioritized=self.c["prioritized"],
+                                             beta=self.c["beta"],
+                                             start_timesteps=self.c["start_timesteps"],
+                                             expl_noise=self.c["expl_noise"])
+        print('Evaluate untrained policy')
         # Evaluate untrained policy
         ep_reward = eval_policy(policy, env_name, seed)
         tb_logger.add_scalar("agent/eval_reward", ep_reward, 0)
@@ -123,6 +133,11 @@ class Trainer:
             done_limit = done_env if episode_timesteps < self.c["ep_len"] else True
 
             # Store data in replay buffer
+            print(state)
+            print(action)
+            print(next_state)
+            print(reward)
+            print(done_env)
             replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t)
 
             state = next_state

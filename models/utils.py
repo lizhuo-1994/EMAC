@@ -328,6 +328,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10):
             i_step += 1
             action = policy.select_action(np.array(state))
             state, reward, done, _ = eval_env.step(action)
+            print(state, reward, done)
             avg_reward += reward
 
     avg_reward /= eval_episodes

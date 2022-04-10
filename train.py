@@ -63,7 +63,8 @@ if __name__ == "__main__":
 
         config = vars(args)
         print("Config: ", config)
-
+        print('Start training...')
         trainer = Trainer(config)
+        print('Start training...')
         trainer.train(exp_dir)
 
