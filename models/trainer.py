@@ -116,6 +116,8 @@ class Trainer:
         tb_logger.add_scalar("agent/eval_reward", ep_reward, 0)
         reward_logger.log(ep_reward, 0)
 
+        total_reward = 0
+
         for t in range(1, int(max_timesteps)+1):
             episode_timesteps += 1
 
@@ -133,11 +135,11 @@ class Trainer:
             done_limit = done_env if episode_timesteps < self.c["ep_len"] else True
 
             # Store data in replay buffer
-            print(state)
-            print(action)
-            print(next_state)
-            print(reward)
-            print(done_env)
+            #print(state)
+            #print(action)
+            #print(next_state)
+            #print(reward)
+            #print(done_env)
             replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t)
 
             state = next_state
@@ -152,10 +154,13 @@ class Trainer:
                 # +1 to account for 0 indexing. +0 on ep_timesteps since it will increment +1 even if done=True
                 # print(f"Total T: {t+1} Episode Num: {episode_num+1} Episode T: {episode_timesteps} Reward: {episode_reward:.3f}")
                 # Reset environment
+                total_reward += episode_reward
+                print('The average performance is :',total_reward / t, ' in round ', t)
                 state = env.reset()
                 episode_reward = 0
                 episode_timesteps = 0
                 episode_num += 1
+                
 
             # Logging buffer size
             if t % 250 == 0:
