@@ -9,7 +9,7 @@ from models.DDPG import DDPG
 from models.EMAC import EMAC
 from models.RCS import RCS
 
-from .utils import eval_policy, RewardLogger, estimate_true_q
+from .utils import eval_policy, RewardLogger, estimate_true_q, determine_state_scales
 from .mem import MemBuffer
 
 
@@ -58,19 +58,19 @@ class Trainer:
         }
         print('Initialize policy')
         # Initialize policy
-        policy = self.c["policy"]
-        if policy == "TD3":
+        method = self.c["policy"]
+        if method == "TD3":
             # Target policy smoothing is scaled wrt the action scale
             kwargs["policy_noise"] = self.c["policy_noise"] * max_action
             kwargs["noise_clip"] = self.c["noise_clip"] * max_action
             kwargs["policy_freq"] = self.c["policy_freq"]
             policy = TD3(**kwargs)
-        elif policy == "DDPG":
+        elif method == "DDPG":
             policy = DDPG(**kwargs)
-        elif policy == "EMAC":
+        elif method == "EMAC":
             kwargs["alpha"] = self.c["alpha"]
             policy = EMAC(**kwargs)
-        elif policy == "RCS":
+        elif method == "RCS":
             kwargs["alpha"] = self.c["alpha"]
             policy = RCS(**kwargs)
 
@@ -87,20 +87,24 @@ class Trainer:
                         mem_dim=self.c["mem_dim"],
                         device=kwargs["device"])
         
-        if policy == "RCS":
+        if method == 'RCS':
             replay_buffer = RcsEpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],
                                              beta=self.c["beta"],
                                              start_timesteps=self.c["start_timesteps"],
                                              expl_noise=self.c["expl_noise"])
+        
         else:
+            determine_state_scales(policy, env_name, seed)
             replay_buffer = EpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],
                                              beta=self.c["beta"],
                                              start_timesteps=self.c["start_timesteps"],
                                              expl_noise=self.c["expl_noise"])
+
+        exit()
         print('Evaluate untrained policy')
         # Evaluate untrained policy
         ep_reward = eval_policy(policy, env_name, seed)
@@ -135,11 +139,17 @@ class Trainer:
             done_limit = done_env if episode_timesteps < self.c["ep_len"] else True
 
             # Store data in replay buffer
-            #print(state)
-            #print(action)
-            #print(next_state)
-            #print(reward)
-            #print(done_env)
+            print('==============================================================')
+            print(state)
+            print('--------------------------------------------------------------')
+            print(action)
+            print('--------------------------------------------------------------')
+            print(next_state)
+            print('--------------------------------------------------------------')
+            print(reward)
+            print('--------------------------------------------------------------')
+            print(done_env)
+     
             replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t)
 
             state = next_state

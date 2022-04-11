@@ -216,6 +216,10 @@ class RcsEpisodicReplayBuffer(object):
 
         self.device = device
 
+        ##########
+        self.state_list = []
+        self.reward_list = []
+
     def _add_replay_buffer(self, state, action, next_state, reward, done):
         self.state[self.ptr] = state
         self.action[self.ptr] = action
@@ -230,7 +234,18 @@ class RcsEpisodicReplayBuffer(object):
         self.ep_state.append(state)
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
-        self.ep_reward.append(reward)
+        #self.ep_reward.append(reward)
+        
+
+        policy.abstracter.append()
+        self.state_list.append(state)
+        self.reward_list.append(reward)
+        if done_env:
+            self.reward_list = policy.abstracter.reward_shaping(self.state_list, self.reward_list)
+            self.ep_reward = self.ep_reward + self.reward_list
+            self.state_list = []
+            self.reward_list = []
+
 
         if done_limit:
             dones = [0] * (len(self.ep_state) - 1) + [1]
@@ -319,7 +334,7 @@ class RcsEpisodicReplayBuffer(object):
 def eval_policy(policy, env_name, seed, eval_episodes=10):
     eval_env = gym.make(env_name)
     eval_env.seed(seed + 100)
-
+    state_list = []
     avg_reward = 0.
     for _ in range(eval_episodes):
         state, done = eval_env.reset(), False
@@ -329,6 +344,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10):
             action = policy.select_action(np.array(state))
             state, reward, done, _ = eval_env.step(action)
             print(state, reward, done)
+            state_list.append(state)
             avg_reward += reward
 
     avg_reward /= eval_episodes
@@ -393,3 +409,23 @@ class RewardLogger:
         with open(os.path.join(self.exp_dir, fn), "w") as f:
             json.dump(self.data, f)
         print("Rewards dumped to ", self.exp_dir)
+
+
+
+def determine_state_scales(policy, env_name, seed, eval_episodes=100):
+    eval_env = gym.make(env_name)
+    eval_env.seed(seed + 100)
+    state_list = []
+    for _ in range(eval_episodes):
+        state, done = eval_env.reset(), False
+        i_step = 0
+        while not done and i_step < 1000:
+            i_step += 1
+            action = policy.select_action(np.array(state))
+            state, reward, done, _ = eval_env.step(action)
+            state_list.append(state)
+
+    print(np.shape(np.array(state_list)))
+    #print(observation_min, observation_max)
+
+

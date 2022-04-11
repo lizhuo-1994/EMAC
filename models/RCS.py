@@ -7,6 +7,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from .nn import Actor, Critic
 
+from abstracter import Abstracter, ScoreInspector
 
 class RCS(object):
     def __init__(self, state_dim, action_dim, max_action, discount=0.99,
@@ -26,6 +27,11 @@ class RCS(object):
 
         self.step = 0
         self.tb_logger = SummaryWriter(log_dir)
+
+
+        self.abstracter = Abstracter()
+        self.abstracter.inspector = ScoreInspector()
+
 
     def select_action(self, state):
         state = torch.FloatTensor(state.reshape(1, -1)).to(self.device)
