@@ -14,18 +14,20 @@ from multiprocessing import Queue
 
 class ScoreInspector:
     
-    def __init__(self, step=1, grid_num = 10):
+    def __init__(self, step, grid_num, state_dim, state_min, state_max):
 
         self.step = step
         self.grid_num = grid_num
-
+        self.state_dim = state_dim
+        self.state_min = state_min
+        self.state_max = state_max
         self.basic_states = None
         self.basic_states_times = None
         self.basic_states_scores = None
         self.basic_states_proceeds = None
         #self.basic_states_values = None
 
-        self.max = 0
+        self.max = 10
         self.min = 0
         
         self.score_avg = None
@@ -43,8 +45,8 @@ class ScoreInspector:
     
     def setup(self):
 
-        self.max_state = None
-        self.min_state = None
+        self.min_state = np.array([self.state_min for i in range(self.state_dim)])
+        self.max_state = np.array([self.state_max for i in range(self.state_dim)])
         
         #self.scores = scores
         self.score_avg = 0.5
@@ -53,23 +55,18 @@ class ScoreInspector:
         self.states_info = dict()
         
         #self.pcaModel = joblib.load(config.PCA_MODEL_PATH)
-        self.grid = Grid(self.max_state, self.min_state, self.grid_num)   
+        self.grid = Grid(self.min_state, self.max_state, self.grid_num)   
 
 
     def discretize_states(self, con_states):
 
         #pca_min, pca_max = self.pcaModel.pca_min, self.pcaModel.pca_max
-        
         #pca_data = self.pcaModel.do_reduction(con_states)
         #abs_states = []
         #for data in pca_data:
         #    abs_state = self.grid.state_abstract(con_states = np.array([data,data]))
         #    abs_states.append(abs_state[0])
-
-        abs_states = []
-        for data in con_states:
-            abs_state = self.grid.con_states(con_states = np.array([data,data]))
-            abs_states.append(abs_state[0])
+        abs_states = self.grid.state_abstract(con_states)
         return abs_states
     
     def inquery(self, pattern):
@@ -82,13 +79,13 @@ class ScoreInspector:
 
         
         if self.s_token.qsize() > 0:
-            
-            new_states_info, new_min, newmax = self.s_token.get()
+
+            new_states_info, new_min, new_max = self.s_token.get()
 
             self.states_info.update(new_states_info)
             self.min = new_min
             self.max = new_max
-            self.score_avg = np.mean([i['score'] for i in self.states_info.keys()])
+            #self.score_avg = np.mean([self.states_info[i]['score'] for i in self.states_info.keys()])
             
             print('############################################################')
             print('Abstract states number :\t', len(self.states_info.keys()))
@@ -98,8 +95,8 @@ class ScoreInspector:
             print('min and mx scores', self.min, self.max)
             print('############################################################')
     
-    def start_pattern_abstract(self, con_states, rewards, values):
-
+    def start_pattern_abstract(self, con_states, rewards):
+        con_states = np.array(con_states)
         t = Process(target = self.pattern_abstract, args = (con_states, rewards))
         t.daemon = True
         t.start()
@@ -107,7 +104,6 @@ class ScoreInspector:
     def pattern_abstract(self, con_states, rewards):
 
         abs_states = self.discretize_states(con_states)
-        
         new_states_info = {}
         
         for i in range(len(abs_states)):
@@ -119,6 +115,7 @@ class ScoreInspector:
             basic_pattern = '-'.join(basic_pattern)
 
             if basic_pattern in self.states_info.keys():
+                new_states_info[basic_pattern] = self.states_info[basic_pattern]
                 new_states_info[basic_pattern]['proceed'] += basic_proceed
                 new_states_info[basic_pattern]['time'] += 1
                 score = (new_states_info[basic_pattern]['proceed'] / new_states_info[basic_pattern]['time'] - self.min) / (self.max - self.min)
@@ -136,7 +133,7 @@ class ScoreInspector:
             if score > self.max:
                 self.max = score
 
-        self.s_token.put(new_states_info, self.min, self.max)
+        self.s_token.put((new_states_info, self.min, self.max))
 
     
 
@@ -168,12 +165,11 @@ class Abstracter:
         self.con_dones  = []
     
     def handle_pattern(self,con_states,rewards):
-   
+        
         abs_pattern = self.inspector.discretize_states(con_states)
 
         if len(abs_pattern) != self.step:
             return rewards[0]
-
         pattern = '-'.join(abs_pattern)
             
         final_score = self.inspector.inquery(pattern)

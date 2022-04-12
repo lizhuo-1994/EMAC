@@ -235,16 +235,17 @@ class RcsEpisodicReplayBuffer(object):
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
         #self.ep_reward.append(reward)
-        
 
-        policy.abstracter.append()
+
+        policy.abstracter.append(state, reward, done_env)
         self.state_list.append(state)
         self.reward_list.append(reward)
         if done_env:
-            self.reward_list = policy.abstracter.reward_shaping(self.state_list, self.reward_list)
-            self.ep_reward = self.ep_reward + self.reward_list
+            self.reward_list = policy.abstracter.reward_shaping(np.array(self.state_list), np.array(self.reward_list))
+            self.ep_reward = self.ep_reward + self.reward_list.tolist()
             self.state_list = []
             self.reward_list = []
+            policy.abstracter.inspector.sync_scores()
 
 
         if done_limit:
@@ -316,8 +317,7 @@ class RcsEpisodicReplayBuffer(object):
                 torch.FloatTensor(self.action[ind]).to(self.device),
                 torch.FloatTensor(self.next_state[ind]).to(self.device),
                 torch.FloatTensor(self.reward[ind]).to(self.device),
-                torch.FloatTensor(self.not_done[ind]).to(self.device),
-                torch.FloatTensor(self.last_pi[ind]).to(self.device)
+                torch.FloatTensor(self.not_done[ind]).to(self.device)
         )
 
     def save(self, file_name):
@@ -412,10 +412,11 @@ class RewardLogger:
 
 
 
-def determine_state_scales(policy, env_name, seed, eval_episodes=100):
+def determine_state_scales(policy, env_name, seed, eval_episodes=10000):
     eval_env = gym.make(env_name)
     eval_env.seed(seed + 100)
     state_list = []
+    '''
     for _ in range(eval_episodes):
         state, done = eval_env.reset(), False
         i_step = 0
@@ -424,8 +425,16 @@ def determine_state_scales(policy, env_name, seed, eval_episodes=100):
             action = policy.select_action(np.array(state))
             state, reward, done, _ = eval_env.step(action)
             state_list.append(state)
+    '''
+    for i in range(eval_episodes):
+        eval_env.seed(i)
+        eval_env.observation_space.seed(i)
+        state = eval_env.observation_space.sample()
+        state_list.append(state)
 
-    print(np.shape(np.array(state_list)))
+    state_list = np.array(state_list)
+    for i in range(len(state_list[0])):
+        print(np.min(state_list[:,i]), np.max(state_list[:,i]))
     #print(observation_min, observation_max)
 
 

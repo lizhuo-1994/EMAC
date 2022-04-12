@@ -11,7 +11,8 @@ from .abstracter import Abstracter, ScoreInspector
 
 class RCS(object):
     def __init__(self, state_dim, action_dim, max_action, discount=0.99,
-            tau=0.005, device="cuda", log_dir="tb"):
+            tau=0.005, device="cuda", log_dir="tb", step=1, grid_num = 5, 
+            decay=0.1, repair_scope=0.25, state_max = 10, state_min = -10):
         self.actor = Actor(state_dim, action_dim, max_action).to(device)
         self.actor_target = copy.deepcopy(self.actor)
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters())
@@ -28,9 +29,8 @@ class RCS(object):
         self.step = 0
         self.tb_logger = SummaryWriter(log_dir)
 
-
-        #self.abstracter = Abstracter()
-        #self.abstracter.inspector = ScoreInspector()
+        self.abstracter = Abstracter(step, decay, repair_scope)
+        self.abstracter.inspector = ScoreInspector(step, grid_num, state_dim, state_min, state_max)
 
 
     def select_action(self, state):

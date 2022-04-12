@@ -87,8 +87,6 @@ class Trainer:
                         device=kwargs["device"])
         
         if method == 'RCS':
-            determine_state_scales(policy, env_name, seed)
-            exit()
             replay_buffer = RcsEpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],
@@ -104,7 +102,6 @@ class Trainer:
                                              start_timesteps=self.c["start_timesteps"],
                                              expl_noise=self.c["expl_noise"])
 
-        exit()
         print('Evaluate untrained policy')
         # Evaluate untrained policy
         ep_reward = eval_policy(policy, env_name, seed)
@@ -139,17 +136,17 @@ class Trainer:
             done_limit = done_env if episode_timesteps < self.c["ep_len"] else True
 
             # Store data in replay buffer
-            print('==============================================================')
-            print(state)
-            print('--------------------------------------------------------------')
-            print(action)
-            print('--------------------------------------------------------------')
-            print(next_state)
-            print('--------------------------------------------------------------')
-            print(reward)
-            print('--------------------------------------------------------------')
-            print(done_env)
-     
+            #print('==============================================================')
+            #print(state)
+            #print('--------------------------------------------------------------')
+            #print(action)
+            #print('--------------------------------------------------------------')
+            #print(next_state)
+            #print('--------------------------------------------------------------')
+            #print(reward)
+            #print('--------------------------------------------------------------')
+            #print(done_env)
+
             replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t)
 
             state = next_state
