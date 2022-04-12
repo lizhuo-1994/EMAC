@@ -71,7 +71,6 @@ class Trainer:
             kwargs["alpha"] = self.c["alpha"]
             policy = EMAC(**kwargs)
         elif method == "RCS":
-            kwargs["alpha"] = self.c["alpha"]
             policy = RCS(**kwargs)
 
             ####### configure the state abstraction #############
@@ -88,6 +87,8 @@ class Trainer:
                         device=kwargs["device"])
         
         if method == 'RCS':
+            determine_state_scales(policy, env_name, seed)
+            exit()
             replay_buffer = RcsEpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],
@@ -96,7 +97,6 @@ class Trainer:
                                              expl_noise=self.c["expl_noise"])
         
         else:
-            determine_state_scales(policy, env_name, seed)
             replay_buffer = EpisodicReplayBuffer(state_dim, action_dim, mem,
                                              device=device,
                                              prioritized=self.c["prioritized"],

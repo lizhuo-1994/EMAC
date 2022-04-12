@@ -3,7 +3,6 @@ import numpy as np
 import joblib
 from collections import OrderedDict
 import numpy as np
-from graphviz import Digraph
 from sklearn.mixture import GaussianMixture
 import time
 from collections import defaultdict
@@ -420,32 +419,3 @@ def fetchStateOrder2(abs_traces):
 
     return good_list,bad_list
 
-
-def determine_state_scales(policy, env_name, seed, eval_episodes=10):
-    def eval_policy():
-    eval_env = gym.make(env_name)
-    eval_env.seed(seed + 100)
-    state_list = []
-    avg_reward = 0.
-    for _ in range(eval_episodes):
-        state, done = eval_env.reset(), False
-        i_step = 0
-        while not done and i_step < 1000:
-            i_step += 1
-            action = policy.select_action(np.array(state))
-            state, reward, done, _ = eval_env.step(action)
-            print(state, reward, done)
-            state_list.append(state)
-            avg_reward += reward
-
-    avg_reward /= eval_episodes
-    #state_list = np.array(state_list)
-    observation_min = np.min(state_list)
-    observation_max = np.max(state_list)
-    print('min:', observation_min)
-    print('max:', observation_max)
-
-    print("---------------------------------------")
-    print(f"Evaluation over {eval_episodes} episodes: {avg_reward:.3f}")
-    print("---------------------------------------")
-    return avg_reward

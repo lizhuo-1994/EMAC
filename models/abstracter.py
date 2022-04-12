@@ -2,22 +2,23 @@ import os,sys
 import copy
 import numpy as np
 import pickle, joblib, time
-from interfaces import traj_stat_analysis
-from interfaces import pca_analysis
-from interfaces import grid_abs_analysis
-from interfaces import fetchCriticalState,analyze_abstraction
-from interfaces import PCA_R
-from interfaces import Grid
+#from interfaces import traj_stat_analysis
+#from interfaces import pca_analysis
+from .interfaces import grid_abs_analysis
+#from interfaces import fetchCriticalState,analyze_abstraction
+#from interfaces import PCA_R
+from .interfaces import Grid
 from multiprocessing import Process  
 import scipy.stats as stats
-
+from multiprocessing import Queue
 
 class ScoreInspector:
     
-    def __init__(self, step):
+    def __init__(self, step=1, grid_num = 10):
 
         self.step = step
- 
+        self.grid_num = grid_num
+
         self.basic_states = None
         self.basic_states_times = None
         self.basic_states_scores = None
@@ -46,26 +47,15 @@ class ScoreInspector:
         self.min_state = None
         
         #self.scores = scores
-        self.score_avg = np.mean(scores)
+        self.score_avg = 0.5
         
         #self.states_info = self.setup_score_dict(states, times, proceeds, scores, values)
-        self.states_info = self.setup_score_dict(states, times, proceeds, scores)
+        self.states_info = dict()
         
         #self.pcaModel = joblib.load(config.PCA_MODEL_PATH)
         self.grid = Grid(self.max_state, self.min_state, self.grid_num)   
-    
-    #def setup_score_dict(self, states, times, proceeds, scores, values):
-    def setup_score_dict(self, states, times, proceeds, scores):
-        
-        d = dict()
-        for i in range(len(states)):
-            d[states[i]] = {}
-            d[states[i]]['time'] = times[i]
-            d[states[i]]['proceed'] = proceeds[i]
-            d[states[i]]['score'] = scores[i]
-            
-        return d
-    
+
+
     def discretize_states(self, con_states):
 
         #pca_min, pca_max = self.pcaModel.pca_min, self.pcaModel.pca_max
@@ -153,7 +143,7 @@ class ScoreInspector:
 
 class Abstracter:
     
-    def __init__(self, step, decay, repair_scope):
+    def __init__(self, step=1, decay=0.1, repair_scope=0.25):
         self.con_states = []
         self.con_values = []
         self.con_reward = []
@@ -187,7 +177,7 @@ class Abstracter:
         pattern = '-'.join(abs_pattern)
             
         final_score = self.inspector.inquery(pattern)
-        if final_score::
+        if final_score:
             if final_score < self.repair_scope:
                 #print('original_reward:\t', rewards[0], final_score, self.inspector.score_avg)
                 rewards[0] += (final_score - self.inspector.score_avg) * self.decay
