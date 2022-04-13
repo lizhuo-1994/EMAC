@@ -135,7 +135,7 @@ class Trainer:
             next_state, reward, done_env, _ = env.step(action)
             done_limit = done_env if episode_timesteps < self.c["ep_len"] else True
 
-            replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t)
+            replay_buffer.add(state, action, next_state, reward, done_env, done_limit, env, policy, t, max_timesteps)
 
             state = next_state
             episode_reward += reward

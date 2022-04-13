@@ -180,7 +180,7 @@ class Abstracter:
         self.con_reward = []
         self.con_dones  = []
     
-    def handle_pattern(self,con_states,rewards):
+    def handle_pattern(self,con_states,rewards,step, total_step):
         
         abs_pattern = self.inspector.discretize_states(con_states)
         
@@ -192,7 +192,7 @@ class Abstracter:
         if final_score:
             if final_score < self.repair_scope:
                 #print('original_reward:\t', rewards[0], final_score, self.inspector.score_avg)
-                rewards[0] += (final_score - self.inspector.score_avg) * self.decay
+                rewards[0] += (final_score - self.inspector.score_avg) * self.decay * (step/total_step)
                 #print('new_reward:\t', rewards[0])
                 
 
@@ -200,7 +200,7 @@ class Abstracter:
 
 
 
-    def reward_shaping(self, state_list, reward_list):
+    def reward_shaping(self, state_list, reward_list, step, total_step):
         
         shaping_reward_list = copy.deepcopy(reward_list)
 
@@ -209,7 +209,7 @@ class Abstracter:
             target_states = state_list[i:i+self.step]
             target_rewards = reward_list[i:i+self.step]
 
-            shaped_reward = self.handle_pattern(target_states, target_rewards)
+            shaped_reward = self.handle_pattern(target_states, target_rewards, step, total_step)
             shaping_reward_list[i] = shaped_reward
         
         shaping_reward_list = np.array(shaping_reward_list)

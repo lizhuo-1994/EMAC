@@ -41,9 +41,6 @@ class RCS(object):
         # Sample replay buffer
         state, action, next_state, reward, not_done = replay_buffer.sample(batch_size)
 
-        # do the reward shaping
-        reward = reward
-
         # Compute the target Q value
         target_Q = self.critic_target(next_state, self.actor_target(next_state))
         target_Q = reward + (not_done * self.discount * target_Q).detach()

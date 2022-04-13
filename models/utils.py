@@ -97,7 +97,7 @@ class EpisodicReplayBuffer(object):
         self.ptr = (self.ptr + 1) % self.max_size
         self.size = min(self.size + 1, self.max_size)
 
-    def add(self, state, action, next_state, reward, done_env, done_limit, env, policy, step):
+    def add(self, state, action, next_state, reward, done_env, done_limit, env, policy, step, max_timesteps):
         self.ep_state.append(state)
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
@@ -230,7 +230,7 @@ class RcsEpisodicReplayBuffer(object):
         self.ptr = (self.ptr + 1) % self.max_size
         self.size = min(self.size + 1, self.max_size)
 
-    def add(self, state, action, next_state, reward, done_env, done_limit, env, policy, step):
+    def add(self, state, action, next_state, reward, done_env, done_limit, env, policy, step, total_step):
         self.ep_state.append(state)
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
@@ -240,14 +240,14 @@ class RcsEpisodicReplayBuffer(object):
         policy.abstracter.append(state, reward, done_env)
         self.state_list.append(state)
         self.reward_list.append(reward)
-        '''
+        
         if done_env:
-            self.reward_list = policy.abstracter.reward_shaping(np.array(self.state_list), np.array(self.reward_list))
+            self.reward_list = policy.abstracter.reward_shaping(np.array(self.state_list), np.array(self.reward_list), step, total_step)
             self.ep_reward = self.ep_reward + self.reward_list.tolist()
             self.state_list = []
             self.reward_list = []
             policy.abstracter.inspector.sync_scores()
-        '''
+        
 
         if done_limit:
             dones = [0] * (len(self.ep_state) - 1) + [1]
@@ -344,7 +344,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=10):
             i_step += 1
             action = policy.select_action(np.array(state))
             state, reward, done, _ = eval_env.step(action)
-            print(state, reward, done)
+            #print(state, reward, done)
             state_list.append(state)
             avg_reward += reward
 
