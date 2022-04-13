@@ -79,7 +79,7 @@ class Grid(AbstractModel):
         lower_bound = self.min
         upper_bound = self.max
         unit = (upper_bound - lower_bound)/self.k
-        abs_states = np.zeros(con_states.shape[0],dtype=np.int)
+        abs_states = np.zeros(con_states.shape[0],dtype=np.int8)
         
         #print(lower_bound)
         #print(upper_bound)

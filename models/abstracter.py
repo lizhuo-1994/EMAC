@@ -11,6 +11,7 @@ from .interfaces import Grid
 from multiprocessing import Process  
 import scipy.stats as stats
 from multiprocessing import Queue
+import json
 
 class ScoreInspector:
     
@@ -26,9 +27,6 @@ class ScoreInspector:
         self.basic_states_scores = None
         self.basic_states_proceeds = None
         #self.basic_states_values = None
-
-        self.max = 10
-        self.min = 0
         
         self.score_avg = None
         self.pcaModel = None
@@ -48,6 +46,9 @@ class ScoreInspector:
         self.min_state = np.array([self.state_min for i in range(self.state_dim)])
         self.max_state = np.array([self.state_max for i in range(self.state_dim)])
         
+        self.min_avg_proceed = 0
+        self.max_avg_proceed = 10
+
         #self.scores = scores
         self.score_avg = 0.5
         
@@ -80,20 +81,29 @@ class ScoreInspector:
         
         if self.s_token.qsize() > 0:
 
-            new_states_info, new_min, new_max = self.s_token.get()
+            new_states_info, min_avg_proceed, max_avg_proceed = self.s_token.get()
 
-            self.states_info.update(new_states_info)
-            self.min = new_min
-            self.max = new_max
-            #self.score_avg = np.mean([self.states_info[i]['score'] for i in self.states_info.keys()])
+            if min_avg_proceed < self.min_avg_proceed:
+                self.min_avg_proceed = min_avg_proceed
+            if max_avg_proceed > self.max_avg_proceed:
+                self.max_avg_proceed = max_avg_proceed
             
+            self.states_info.update(new_states_info)
+            self.score_avg = np.mean([self.states_info[abs_state]['score'] for abs_state in self.states_info.keys()])
+
+            '''
+
             print('############################################################')
+            print('Abstract states :\t', self.states_info)
+            with open('state_info.json', 'w') as f:
+                json.dump(self.states_info, f, indent = 6)
             print('Abstract states number :\t', len(self.states_info.keys()))
             print('Abstract traces number :\t', len(self.performance_list))
             print('Average states score :\t', self.score_avg)
             print('Queue size :\t',self.s_token.qsize())
-            print('min and mx scores', self.min, self.max)
+            print('min and max proceed', self.min_avg_proceed, self.max_avg_proceed)
             print('############################################################')
+            '''
     
     def start_pattern_abstract(self, con_states, rewards):
         con_states = np.array(con_states)
@@ -104,36 +114,42 @@ class ScoreInspector:
     def pattern_abstract(self, con_states, rewards):
 
         abs_states = self.discretize_states(con_states)
-        new_states_info = {}
-        
+        min_avg_proceed = self.min_avg_proceed
+        max_avg_proceed = self.max_avg_proceed
+
+        new_states_info = dict()
+        normal_scale = self.max_avg_proceed - self.min_avg_proceed
+
         for i in range(len(abs_states)):
             if i + self.step >= len(abs_states):
                 break
                 
-            basic_proceed = sum(rewards)
-            basic_pattern = abs_states[i:i+self.step]
-            basic_pattern = '-'.join(basic_pattern)
+            proceed = sum(rewards)
+            pattern = abs_states[i:i+self.step]
+            pattern = '-'.join(pattern)
 
-            if basic_pattern in self.states_info.keys():
-                new_states_info[basic_pattern] = self.states_info[basic_pattern]
-                new_states_info[basic_pattern]['proceed'] += basic_proceed
-                new_states_info[basic_pattern]['time'] += 1
-                score = (new_states_info[basic_pattern]['proceed'] / new_states_info[basic_pattern]['time'] - self.min) / (self.max - self.min)
-                new_states_info[basic_pattern]['score'] =  score
+            if pattern in self.states_info.keys():
+                self.states_info[pattern] = self.states_info[pattern]
+                self.states_info[pattern]['proceed'] += proceed
+                self.states_info[pattern]['time'] += 1
+                average_proceed = self.states_info[pattern]['proceed'] / self.states_info[pattern]['time']
+                score = (self.states_info[pattern]['proceed'] / self.states_info[pattern]['time'] - self.min_avg_proceed)  / normal_scale
+                self.states_info[pattern]['score'] =  score
 
             else:
-                new_states_info[basic_pattern] = {}
-                new_states_info[basic_pattern]['proceed'] = basic_proceed
-                new_states_info[basic_pattern]['time'] = 1
-                score = (basic_proceed - self.min) / (self.max - self.min)
-                new_states_info[basic_pattern]['score'] =  score
+                new_states_info[pattern] = {}
+                new_states_info[pattern]['proceed'] = proceed
+                new_states_info[pattern]['time'] = 1
+                average_proceed = proceed
+                score = (proceed - self.min_avg_proceed) / normal_scale
+                new_states_info[pattern]['score'] =  score
             
-            if score < self.min:
-                self.min = score
-            if score > self.max:
-                self.max = score
+            if average_proceed < min_avg_proceed:
+                min_avg_proceed = average_proceed
+            if average_proceed >max_avg_proceed:
+                max_avg_proceed = average_proceed
 
-        self.s_token.put((new_states_info, self.min, self.max))
+        self.s_token.put((new_states_info, min_avg_proceed, max_avg_proceed))
 
     
 
@@ -167,7 +183,7 @@ class Abstracter:
     def handle_pattern(self,con_states,rewards):
         
         abs_pattern = self.inspector.discretize_states(con_states)
-
+        
         if len(abs_pattern) != self.step:
             return rewards[0]
         pattern = '-'.join(abs_pattern)
@@ -178,13 +194,14 @@ class Abstracter:
                 #print('original_reward:\t', rewards[0], final_score, self.inspector.score_avg)
                 rewards[0] += (final_score - self.inspector.score_avg) * self.decay
                 #print('new_reward:\t', rewards[0])
+                
 
         return rewards[0]
 
 
 
     def reward_shaping(self, state_list, reward_list):
-
+        
         shaping_reward_list = copy.deepcopy(reward_list)
 
         for i in range(len(state_list) - self.step):
@@ -196,5 +213,4 @@ class Abstracter:
             shaping_reward_list[i] = shaped_reward
         
         shaping_reward_list = np.array(shaping_reward_list)
-
         return shaping_reward_list
