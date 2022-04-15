@@ -73,7 +73,7 @@ class Trainer:
             kwargs["alpha"] = self.c["alpha"]
             policy = EMAC(**kwargs)
         elif method == "RCS":
-            kwargs["step"] = self.c["step"]
+            kwargs["order"] = self.c["order"]
             kwargs["grid_num"] = self.c["grid_num"]
             kwargs["decay"] = self.c["decay"]
             kwargs["repair_scope"] = self.c["repair_scope"]

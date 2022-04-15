@@ -38,7 +38,7 @@ if __name__ == "__main__":
         parser.add_argument("--estimate_q", action="store_true")            # Flag to turn on Q-value estimation procedure 
         parser.add_argument("--results_dir", default="results")             # Directory for storing all experimental data
 
-        parser.add_argument("--step", type=int, default=1)                  # Directory for storing all experimental data
+        parser.add_argument("--order", type=int, default=1)                  # Directory for storing all experimental data
         parser.add_argument("--grid_num", type=int, default=2)              # Directory for storing all experimental data
         parser.add_argument("--decay", type=float, default=0.5 )            # Directory for storing all experimental data
         parser.add_argument("--repair_scope", type=float, default=1.0 )     # 

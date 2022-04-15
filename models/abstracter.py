@@ -15,9 +15,9 @@ import json
 
 class ScoreInspector:
     
-    def __init__(self, step, grid_num, state_dim, state_min, state_max):
+    def __init__(self, order, grid_num, state_dim, state_min, state_max):
 
-        self.step = step
+        self.order = order
         self.grid_num = grid_num
         self.state_dim = state_dim
         self.state_min = state_min
@@ -119,15 +119,15 @@ class ScoreInspector:
         normal_scale = self.max_avg_proceed - self.min_avg_proceed
 
         for i in range(len(abs_states)):
-            if i + self.step >= len(abs_states):
+            if i + self.order >= len(abs_states):
                 break
                 
-            proceed = sum(rewards[i+self.step:]) / (len(abs_states) - i - self.step)
+            proceed = sum(rewards[i+self.order:]) / (len(abs_states) - i - self.order)
             if proceed < self.min_avg_proceed:
                 min_avg_proceed = proceed
             if proceed > self.max_avg_proceed:
                 max_avg_proceed = proceed
-            pattern = abs_states[i:i+self.step]
+            pattern = abs_states[i:i+self.order]
             pattern = '-'.join(pattern)
 
             if pattern in self.states_info.keys():
@@ -153,12 +153,12 @@ class ScoreInspector:
 
 class Abstracter:
     
-    def __init__(self, step=1, decay=0.1, repair_scope=0.25):
+    def __init__(self, order=1, decay=0.1, repair_scope=0.25):
         self.con_states = []
         self.con_values = []
         self.con_reward = []
         self.con_dones  = []
-        self.step = step
+        self.order = order
         self.decay = decay
         self.repair_scope = repair_scope
         self.inspector = None
@@ -183,7 +183,7 @@ class Abstracter:
         
         abs_pattern = self.inspector.discretize_states(con_states)
         
-        if len(abs_pattern) != self.step:
+        if len(abs_pattern) != self.order:
             return rewards[0]
         pattern = '-'.join(abs_pattern)
             
@@ -204,10 +204,10 @@ class Abstracter:
         
         shaping_reward_list = copy.deepcopy(reward_list)
 
-        for i in range(len(state_list) - self.step):
+        for i in range(len(state_list) - self.order):
 
-            target_states = state_list[i:i+self.step]
-            target_rewards = reward_list[i:i+self.step]
+            target_states = state_list[i:i+self.order]
+            target_rewards = reward_list[i:i+self.order]
 
             shaped_reward = self.handle_pattern(target_states, target_rewards, step, total_step)
             shaping_reward_list[i] = shaped_reward
