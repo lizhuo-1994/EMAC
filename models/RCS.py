@@ -10,9 +10,10 @@ from .nn import Actor, Critic
 from .abstracter import Abstracter, ScoreInspector
 
 class RCS(object):
-    def __init__(self, state_dim, action_dim, max_action, discount=0.99,alpha=0.0,
-            tau=0.005, device="cuda", log_dir="tb", order=1, grid_num = 5, 
-            decay=0.1, repair_scope=0.25, state_max = 10, state_min = -10):
+    def __init__(self, state_dim, action_dim, max_action, discount=0.99,
+        alpha=0.0,tau=0.005, device="cuda", log_dir="tb", order=1, grid_num = 5, 
+        decay=0.1, repair_scope=0.25, state_max = 10, state_min = -10):
+
         self.actor = Actor(state_dim, action_dim, max_action).to(device)
         self.actor_target = copy.deepcopy(self.actor)
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters())
@@ -38,7 +39,7 @@ class RCS(object):
         state = torch.FloatTensor(state.reshape(1, -1)).to(self.device)
         return self.actor(state).cpu().data.numpy().flatten()
 
-   def train(self, replay_buffer, batch_size=100):
+    def train(self, replay_buffer, batch_size=100):
         # Sample replay buffer 
         state, action, next_state, reward, not_done = replay_buffer.sample(batch_size, self.step)
 

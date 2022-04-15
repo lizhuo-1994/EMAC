@@ -234,9 +234,9 @@ class RcsEpisodicReplayBuffer(object):
         self.ep_state.append(state)
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
-        #self.ep_reward.append(reward)
+        self.ep_reward.append(reward)
 
-        
+        '''
         policy.abstracter.append(state, reward, done_env)
         self.state_list.append(state)
         self.reward_list.append(reward)
@@ -248,7 +248,8 @@ class RcsEpisodicReplayBuffer(object):
             self.reward_list = []
             policy.abstracter.inspector.sync_scores()
         
-
+        '''
+        
         if done_limit:
             dones = [0] * (len(self.ep_state) - 1) + [1]
 
