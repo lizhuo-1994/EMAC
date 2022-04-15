@@ -189,11 +189,11 @@ class Abstracter:
             
         score, time = self.inspector.inquery(pattern)
         if score:
-            if score < self.repair_scope and time > 1:
-                #print('original_reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg)
+            if score < self.repair_scope:
+                print('original_reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg)
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
-                #print('delta:\t', delta, 'new_reward:\t', rewards[0])
+                print('delta:\t', delta, 'new_reward:\t', rewards[0])
                 
 
         return rewards[0]
