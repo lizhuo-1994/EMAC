@@ -52,6 +52,7 @@ if __name__ == "__main__":
         results_dir = args.results_dir
         exp_dir = dt.strftime("%b_%d_%Y")
         exp_dir = f"{results_dir}/{exp_dir}_{args.policy}_{args.env}_{args.seed}_{args.exp_name}"
+        '''
         if os.path.exists(exp_dir):
             ans = input(f"Directory {exp_dir} already exists. Overwrite? [Y/n] ")
             if ans == "Y":
@@ -59,7 +60,7 @@ if __name__ == "__main__":
             else:
                 raise Exception("Trying to rewrite existing experiment. Exiting...")
         print(f"Saving dir: {exp_dir}")
-
+        '''
         folders = ["models", "buffers", "tb"]
         for fold in folders:
             fn = f"{exp_dir}/{fold}"
