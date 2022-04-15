@@ -2,11 +2,7 @@ import os,sys
 import copy
 import numpy as np
 import pickle, joblib, time
-#from interfaces import traj_stat_analysis
-#from interfaces import pca_analysis
 from .interfaces import grid_abs_analysis
-#from interfaces import fetchCriticalState,analyze_abstraction
-#from interfaces import PCA_R
 from .interfaces import Grid
 from multiprocessing import Process  
 import scipy.stats as stats
@@ -15,18 +11,21 @@ import json
 
 class ScoreInspector:
     
-    def __init__(self, order, grid_num, state_dim, state_min, state_max):
+    def __init__(self, order, grid_num, state_dim, state_min, state_max, action_dim, action_min, action_max, mode):
 
         self.order = order
         self.grid_num = grid_num
         self.state_dim = state_dim
         self.state_min = state_min
         self.state_max = state_max
+        self.action_dim = action_dim
+        self.action_min = action_min
+        self.action_max = action_max
         self.basic_states = None
         self.basic_states_times = None
         self.basic_states_scores = None
         self.basic_states_proceeds = None
-        #self.basic_states_values = None
+        self.mode = mode
         
         self.score_avg = None
         self.pcaModel = None
@@ -43,8 +42,13 @@ class ScoreInspector:
     
     def setup(self):
 
-        self.min_state = np.array([self.state_min for i in range(self.state_dim)])
-        self.max_state = np.array([self.state_max for i in range(self.state_dim)])
+        if self.mode == 'state':
+            self.min_state = np.array([self.state_min for i in range(self.state_dim)])
+            self.max_state = np.array([self.state_max for i in range(self.state_dim)])
+        elif self.mode == 'state_action':
+            self.min_state = np.array([self.state_min for i in range(self.state_dim)] + [self.action_min for i in range(self.action_dim)])
+            self.max_state = np.array([self.state_max for i in range(self.state_dim)] + [self.action_max for i in range(self.action_dim)])
+
         self.min_avg_proceed = 0
         self.max_avg_proceed = 1
 
@@ -59,13 +63,6 @@ class ScoreInspector:
 
 
     def discretize_states(self, con_states):
-
-        #pca_min, pca_max = self.pcaModel.pca_min, self.pcaModel.pca_max
-        #pca_data = self.pcaModel.do_reduction(con_states)
-        #abs_states = []
-        #for data in pca_data:
-        #    abs_state = self.grid.state_abstract(con_states = np.array([data,data]))
-        #    abs_states.append(abs_state[0])
         abs_states = self.grid.state_abstract(con_states)
         return abs_states
     
@@ -76,8 +73,6 @@ class ScoreInspector:
             return None, None
 
     def sync_scores(self):
-
-        
         if self.s_token.qsize() > 0:
 
             new_states_info, min_avg_proceed, max_avg_proceed = self.s_token.get()
@@ -102,9 +97,13 @@ class ScoreInspector:
     
     def start_pattern_abstract(self, con_states, rewards):
 
-         
-
         con_states = np.array(con_states)
+
+        if self.mode == 'state':
+            con_states = con_states[:,:self.state_dim]
+        elif self.mode == 'state_action':
+            con_states = con_states[:,:self.state_dim + self.action_dim]
+
         t = Process(target = self.pattern_abstract, args = (con_states, rewards))
         t.daemon = True
         t.start()
@@ -153,7 +152,7 @@ class ScoreInspector:
 
 class Abstracter:
     
-    def __init__(self, order=1, decay=0.1, repair_scope=0.25):
+    def __init__(self, order, decay, repair_scope):
         self.con_states = []
         self.con_values = []
         self.con_reward = []
@@ -190,10 +189,10 @@ class Abstracter:
         score, time = self.inspector.inquery(pattern)
         if score:
             if score < self.repair_scope and time > 1:
-                print('original_reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg, "time:\t", time)
+                #print('original_reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg, "time:\t", time)
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
-                print('delta:\t', delta, 'new_reward:\t', rewards[0])
+                #print('delta:\t', delta, 'new_reward:\t', rewards[0])
                 
 
         return rewards[0]

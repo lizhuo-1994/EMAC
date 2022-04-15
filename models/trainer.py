@@ -78,6 +78,11 @@ class Trainer:
             kwargs["grid_num"] = self.c["grid_num"]
             kwargs["decay"] = self.c["decay"]
             kwargs["repair_scope"] = self.c["repair_scope"]
+            kwargs["state_min"] = self.c["state_min"]
+            kwargs["state_max"] = self.c["state_max"]
+            kwargs["action_min"] = self.c["action_min"]
+            kwargs["action_max"] = self.c["action_max"]
+            kwargs["mode"] = self.c["mode"]
             policy = RCS(**kwargs)
 
             ####### configure the state abstraction #############
