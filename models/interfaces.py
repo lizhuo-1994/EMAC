@@ -76,6 +76,7 @@ class Grid(AbstractModel):
         self.clipped = clipped
 
     def state_abstract(self, con_states):
+        con_states = con_states
         lower_bound = self.min
         upper_bound = self.max
         unit = (upper_bound - lower_bound)/self.k

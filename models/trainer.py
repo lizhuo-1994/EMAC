@@ -32,6 +32,8 @@ class Trainer:
         env_name = self.c["env"]
         env = gym.make(self.c["env"])
         substeps = self.c["substeps"]
+
+
         
         # Logger
         tb_logger = SummaryWriter(f"{exp_dir}/tb")
@@ -54,7 +56,7 @@ class Trainer:
             "discount": self.c["discount"],
             "tau": self.c["tau"],
             "device": self.c["device"],
-            "log_dir": f"{exp_dir}/tb",
+            "log_dir": f"{exp_dir}/tb"
         }
         print('Initialize policy')
         # Initialize policy
@@ -71,6 +73,10 @@ class Trainer:
             kwargs["alpha"] = self.c["alpha"]
             policy = EMAC(**kwargs)
         elif method == "RCS":
+            kwargs["step"] = self.c["step"]
+            kwargs["grid_num"] = self.c["grid_num"]
+            kwargs["decay"] = self.c["decay"]
+            kwargs["repair_scope"] = self.c["repair_scope"]
             policy = RCS(**kwargs)
 
             ####### configure the state abstraction #############
@@ -150,7 +156,7 @@ class Trainer:
                 # print(f"Total T: {t+1} Episode Num: {episode_num+1} Episode T: {episode_timesteps} Reward: {episode_reward:.3f}")
                 # Reset environment
                 total_reward += episode_reward
-                print('The average performance is :',total_reward / t, ' in round ', t)
+                print('The average performance is :', episode_reward, ' in round ', t)
                 state = env.reset()
                 episode_reward = 0
                 episode_timesteps = 0

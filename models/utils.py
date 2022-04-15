@@ -234,7 +234,7 @@ class RcsEpisodicReplayBuffer(object):
         self.ep_state.append(state)
         self.ep_action.append(action)
         self.ep_next_state.append(next_state)
-        self.ep_reward.append(reward)
+        #self.ep_reward.append(reward)
 
         
         policy.abstracter.append(state, reward, done_env)

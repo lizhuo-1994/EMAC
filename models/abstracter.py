@@ -45,12 +45,11 @@ class ScoreInspector:
 
         self.min_state = np.array([self.state_min for i in range(self.state_dim)])
         self.max_state = np.array([self.state_max for i in range(self.state_dim)])
-        
         self.min_avg_proceed = 0
-        self.max_avg_proceed = 10
+        self.max_avg_proceed = 1
 
         #self.scores = scores
-        self.score_avg = 0.5
+        self.score_avg = 0
         
         #self.states_info = self.setup_score_dict(states, times, proceeds, scores, values)
         self.states_info = dict()
@@ -72,9 +71,9 @@ class ScoreInspector:
     
     def inquery(self, pattern):
         if pattern in self.states_info.keys():
-            return self.states_info[pattern]['score']
+            return self.states_info[pattern]['score'], self.states_info[pattern]['time'] 
         else:
-            return None
+            return None, None
 
     def sync_scores(self):
 
@@ -82,23 +81,19 @@ class ScoreInspector:
         if self.s_token.qsize() > 0:
 
             new_states_info, min_avg_proceed, max_avg_proceed = self.s_token.get()
-
+            
             if min_avg_proceed < self.min_avg_proceed:
                 self.min_avg_proceed = min_avg_proceed
             if max_avg_proceed > self.max_avg_proceed:
                 self.max_avg_proceed = max_avg_proceed
-            
+
             self.states_info.update(new_states_info)
             self.score_avg = np.mean([self.states_info[abs_state]['score'] for abs_state in self.states_info.keys()])
-
+            
             '''
-
             print('############################################################')
-            print('Abstract states :\t', self.states_info)
-            with open('state_info.json', 'w') as f:
-                json.dump(self.states_info, f, indent = 6)
+            #print('Abstract states :\t', self.states_info)
             print('Abstract states number :\t', len(self.states_info.keys()))
-            print('Abstract traces number :\t', len(self.performance_list))
             print('Average states score :\t', self.score_avg)
             print('Queue size :\t',self.s_token.qsize())
             print('min and max proceed', self.min_avg_proceed, self.max_avg_proceed)
@@ -106,6 +101,9 @@ class ScoreInspector:
             '''
     
     def start_pattern_abstract(self, con_states, rewards):
+
+         
+
         con_states = np.array(con_states)
         t = Process(target = self.pattern_abstract, args = (con_states, rewards))
         t.daemon = True
@@ -124,30 +122,29 @@ class ScoreInspector:
             if i + self.step >= len(abs_states):
                 break
                 
-            proceed = sum(rewards)
+            proceed = sum(rewards[i+self.step:]) / (len(abs_states) - i - self.step)
+            if proceed < self.min_avg_proceed:
+                min_avg_proceed = proceed
+            if proceed > self.max_avg_proceed:
+                max_avg_proceed = proceed
             pattern = abs_states[i:i+self.step]
             pattern = '-'.join(pattern)
 
             if pattern in self.states_info.keys():
-                self.states_info[pattern] = self.states_info[pattern]
-                self.states_info[pattern]['proceed'] += proceed
-                self.states_info[pattern]['time'] += 1
-                average_proceed = self.states_info[pattern]['proceed'] / self.states_info[pattern]['time']
-                score = (self.states_info[pattern]['proceed'] / self.states_info[pattern]['time'] - self.min_avg_proceed)  / normal_scale
-                self.states_info[pattern]['score'] =  score
-
+                new_states_info[pattern] = self.states_info[pattern]
+                new_states_info[pattern]['proceed'] += proceed
+                new_states_info[pattern]['time'] += 1
+                average_proceed = new_states_info[pattern]['proceed'] / new_states_info[pattern]['time']
+                score = (average_proceed - self.min_avg_proceed)  / normal_scale
+                score = np.clip(score, 0, 1)
+                new_states_info[pattern]['score'] =  score
             else:
                 new_states_info[pattern] = {}
                 new_states_info[pattern]['proceed'] = proceed
                 new_states_info[pattern]['time'] = 1
-                average_proceed = proceed
                 score = (proceed - self.min_avg_proceed) / normal_scale
+                score = np.clip(score, 0, 1)
                 new_states_info[pattern]['score'] =  score
-            
-            if average_proceed < min_avg_proceed:
-                min_avg_proceed = average_proceed
-            if average_proceed >max_avg_proceed:
-                max_avg_proceed = average_proceed
 
         self.s_token.put((new_states_info, min_avg_proceed, max_avg_proceed))
 
@@ -165,6 +162,8 @@ class Abstracter:
         self.decay = decay
         self.repair_scope = repair_scope
         self.inspector = None
+
+        
         
     def append(self, con_state, reward, done):
         self.con_states.append(con_state)
@@ -188,12 +187,13 @@ class Abstracter:
             return rewards[0]
         pattern = '-'.join(abs_pattern)
             
-        final_score = self.inspector.inquery(pattern)
-        if final_score:
-            if final_score < self.repair_scope:
-                #print('original_reward:\t', rewards[0], final_score, self.inspector.score_avg)
-                rewards[0] += (final_score - self.inspector.score_avg) * self.decay * (step/total_step)
-                #print('new_reward:\t', rewards[0])
+        score, time = self.inspector.inquery(pattern)
+        if score:
+            if score < self.repair_scope and time > 1:
+                #print('original_reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg)
+                delta = (score - self.inspector.score_avg) * self.decay
+                rewards[0] += delta
+                #print('delta:\t', delta, 'new_reward:\t', rewards[0])
                 
 
         return rewards[0]

@@ -29,6 +29,7 @@ class RCS(object):
         self.step = 0
         self.tb_logger = SummaryWriter(log_dir)
 
+
         self.abstracter = Abstracter(step, decay, repair_scope)
         self.abstracter.inspector = ScoreInspector(step, grid_num, state_dim, state_min, state_max)
 
