@@ -80,8 +80,8 @@ class Trainer:
             kwargs["repair_scope"] = self.c["repair_scope"]
             kwargs["state_min"] = self.c["state_min"]
             kwargs["state_max"] = self.c["state_max"]
-            kwargs["action_min"] = self.c["action_min"]
-            kwargs["action_max"] = self.c["action_max"]
+            kwargs["action_min"] = np.min(env.action_space.low)
+            kwargs["action_max"] = np.min(env.action_space.high)
             kwargs["mode"] = self.c["mode"]
             policy = RCS(**kwargs)
 

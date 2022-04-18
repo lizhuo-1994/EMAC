@@ -12,8 +12,8 @@ from .abstracter import Abstracter, ScoreInspector
 class RCS(object):
     def __init__(self, state_dim, action_dim, max_action, discount=0.99,
         alpha=0.0,tau=0.005, device="cuda", log_dir="tb", order=1, grid_num = 5, 
-        decay=0.1, repair_scope=0.25, state_max = 10, state_min = -10, 
-        action_max = 1, action_min = -1, mode = 'state'):
+        decay=0.1, repair_scope=0.25, state_max = 10, state_min = -10, action_min=-1, action_max = 1,
+        mode = 'state_action'):
 
         self.actor = Actor(state_dim, action_dim, max_action).to(device)
         self.actor_target = copy.deepcopy(self.actor)
