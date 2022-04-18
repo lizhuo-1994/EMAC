@@ -204,5 +204,9 @@ class Trainer:
         policy = self.c["policy"]
         exp = self.c["exp_name"]
         seed = self.c["seed"]
-        fn = f"{env}_{policy}_{exp}_{seed}.json"
+        if policy == 'RCS':
+            order = self.c['order']
+            fn = f"{env}/{policy}_{order}/{exp}_{seed}.json"
+        else:
+            fn = f"{env}/{policy}/{exp}_{seed}.json"
         reward_logger.dump(fn)
