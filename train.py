@@ -52,7 +52,7 @@ if __name__ == "__main__":
         print("---------------------------------------")
 
         dt = datetime.now()
-        results_dir = args.results_dir
+        results_dir = f"{args.results_dir}/{args.policy}"
         exp_dir = dt.strftime("%b_%d_%Y")
         exp_dir = f"{results_dir}/{exp_dir}_{args.policy}_{args.env}_{args.seed}_{args.exp_name}"
         '''
