@@ -188,12 +188,9 @@ class Abstracter:
         score, time = self.inspector.inquery(pattern)
 
         if score != None:
-            #difference = abs(score - self.inspector.score_avg)
             if  time > 1:
-                #print('pattern:\t', pattern, 'reward:\t', rewards[0], 'score:\t', score, 'score_avg:\t',self.inspector.score_avg, "time:\t", time)
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
-                #print('delta:\t', delta, 'new_reward:\t', rewards[0])
                 
 
         return rewards[0]
