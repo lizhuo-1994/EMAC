@@ -248,8 +248,6 @@ class RcsEpisodicReplayBuffer(object):
             self.reward_list = []
             policy.abstracter.inspector.sync_scores()
         
-        
-        
         if done_limit:
             dones = [0] * (len(self.ep_state) - 1) + [1]
             # Calculate Q-values

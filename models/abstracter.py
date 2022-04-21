@@ -191,7 +191,6 @@ class Abstracter:
             if  time > 1:
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
-                
 
         return rewards[0]
 
