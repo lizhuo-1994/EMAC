@@ -4581,3 +4581,696 @@ Step  90000
 Evaluation over 10 episodes: 1470.041
 ---------------------------------------
 The average performance is : 479.20909283693084  in round  90161
+The average performance is : 1866.9631993401865  in round  90711
+Step  91000
+---------------------------------------
+Evaluation over 10 episodes: 1904.799
+---------------------------------------
+The average performance is : 2188.2931349360406  in round  91415
+The average performance is : 1619.2249553839727  in round  91902
+Step  92000
+---------------------------------------
+Evaluation over 10 episodes: 1909.100
+---------------------------------------
+The average performance is : 2675.313506105938  in round  92683
+Step  93000
+---------------------------------------
+Evaluation over 10 episodes: 1846.982
+---------------------------------------
+The average performance is : 3006.0389194593795  in round  93572
+The average performance is : 88.8890480160819  in round  93704
+Step  94000
+---------------------------------------
+Evaluation over 10 episodes: 1379.918
+---------------------------------------
+The average performance is : 870.2779081166386  in round  94029
+The average performance is : 2244.9584088274696  in round  94731
+Step  95000
+---------------------------------------
+Evaluation over 10 episodes: 1780.525
+---------------------------------------
+The average performance is : 677.4236111367434  in round  95039
+The average performance is : 1041.9603603667115  in round  95359
+The average performance is : 845.5366012492708  in round  95664
+The average performance is : 686.8499697077531  in round  95911
+Step  96000
+---------------------------------------
+Evaluation over 10 episodes: 1514.504
+---------------------------------------
+The average performance is : 1084.3215129907294  in round  96258
+The average performance is : 1235.4478027737694  in round  96643
+Step  97000
+---------------------------------------
+Evaluation over 10 episodes: 2109.365
+---------------------------------------
+The average performance is : 1424.3267464684623  in round  97083
+The average performance is : 698.1948102540248  in round  97338
+The average performance is : 1404.4620012648556  in round  97763
+Step  98000
+---------------------------------------
+Evaluation over 10 episodes: 1512.148
+---------------------------------------
+The average performance is : 1401.4230170382502  in round  98224
+The average performance is : 1249.8455522114607  in round  98661
+Step  99000
+---------------------------------------
+Evaluation over 10 episodes: 1511.020
+---------------------------------------
+The average performance is : 2212.0696490516493  in round  99315
+The average performance is : 477.7699355701953  in round  99539
+The average performance is : 1321.7326525908038  in round  99948
+Step  100000
+---------------------------------------
+Evaluation over 10 episodes: 2438.011
+---------------------------------------
+The average performance is : 3422.235265117057  in round  100886
+Step  101000
+---------------------------------------
+Evaluation over 10 episodes: 2291.333
+---------------------------------------
+The average performance is : 3102.2491934899817  in round  101886
+Step  102000
+---------------------------------------
+Evaluation over 10 episodes: 2038.665
+---------------------------------------
+The average performance is : 2769.9939879274807  in round  102663
+Step  103000
+---------------------------------------
+Evaluation over 10 episodes: 1820.468
+---------------------------------------
+The average performance is : 1483.796367274504  in round  103136
+The average performance is : 194.44633543280042  in round  103238
+The average performance is : 1956.1749458377274  in round  103839
+Step  104000
+---------------------------------------
+Evaluation over 10 episodes: 2516.522
+---------------------------------------
+The average performance is : 707.4016150574424  in round  104093
+The average performance is : 2408.3206809756175  in round  104771
+Step  105000
+---------------------------------------
+Evaluation over 10 episodes: 1558.014
+---------------------------------------
+The average performance is : 1754.4182081437802  in round  105268
+The average performance is : 1589.5508404865375  in round  105730
+The average performance is : 377.56407172200505  in round  105893
+Step  106000
+---------------------------------------
+Evaluation over 10 episodes: 1438.669
+---------------------------------------
+The average performance is : 1883.8678439467444  in round  106434
+Step  107000
+---------------------------------------
+Evaluation over 10 episodes: 1368.392
+---------------------------------------
+The average performance is : 2361.6847477175893  in round  107127
+The average performance is : 647.2173421089922  in round  107378
+The average performance is : 1789.140982395507  in round  107888
+Step  108000
+---------------------------------------
+Evaluation over 10 episodes: 2159.074
+---------------------------------------
+The average performance is : 1600.5909758022422  in round  108353
+The average performance is : 1460.9174194627378  in round  108848
+Step  109000
+---------------------------------------
+Evaluation over 10 episodes: 1851.778
+---------------------------------------
+The average performance is : 2026.4806571189433  in round  109425
+The average performance is : 1338.2484673332128  in round  109840
+Step  110000
+---------------------------------------
+Evaluation over 10 episodes: 1365.520
+---------------------------------------
+The average performance is : 422.63055510930434  in round  110002
+The average performance is : 1411.8605810017718  in round  110428
+The average performance is : 490.5185937678974  in round  110652
+Step  111000
+---------------------------------------
+Evaluation over 10 episodes: 1763.997
+---------------------------------------
+The average performance is : 2116.2496210409495  in round  111288
+The average performance is : 1393.1716187194272  in round  111709
+Step  112000
+---------------------------------------
+Evaluation over 10 episodes: 2086.565
+---------------------------------------
+The average performance is : 1427.7015990554962  in round  112150
+The average performance is : 2976.690336936329  in round  112966
+Step  113000
+---------------------------------------
+Evaluation over 10 episodes: 1669.322
+---------------------------------------
+The average performance is : 1587.8949399294866  in round  113453
+The average performance is : 1607.8882078919669  in round  113918
+Step  114000
+---------------------------------------
+Evaluation over 10 episodes: 1651.275
+---------------------------------------
+The average performance is : 2985.2945780621576  in round  114769
+The average performance is : 642.1394907378819  in round  114986
+Step  115000
+---------------------------------------
+Evaluation over 10 episodes: 2236.779
+---------------------------------------
+The average performance is : 1905.6441076152576  in round  115535
+The average performance is : 297.4423711385636  in round  115685
+Step  116000
+---------------------------------------
+Evaluation over 10 episodes: 1854.933
+---------------------------------------
+The average performance is : 3169.959712721778  in round  116529
+The average performance is : 369.8008281948963  in round  116717
+Step  117000
+---------------------------------------
+Evaluation over 10 episodes: 1639.663
+---------------------------------------
+The average performance is : 2977.535886169083  in round  117552
+Step  118000
+---------------------------------------
+Evaluation over 10 episodes: 1911.229
+---------------------------------------
+The average performance is : 1690.1072213895752  in round  118095
+The average performance is : 1553.8125164945836  in round  118609
+Step  119000
+---------------------------------------
+Evaluation over 10 episodes: 1886.538
+---------------------------------------
+The average performance is : 1730.7253816054908  in round  119165
+The average performance is : 2657.4082888592347  in round  119919
+Step  120000
+---------------------------------------
+Evaluation over 10 episodes: 2201.362
+---------------------------------------
+The average performance is : 603.8840356626906  in round  120152
+The average performance is : 2590.8202811042497  in round  120883
+Step  121000
+---------------------------------------
+Evaluation over 10 episodes: 2570.739
+---------------------------------------
+The average performance is : 1320.3893074498428  in round  121283
+The average performance is : 2071.036355652619  in round  121848
+Step  122000
+---------------------------------------
+Evaluation over 10 episodes: 2933.895
+---------------------------------------
+The average performance is : 2487.2667514856257  in round  122553
+Step  123000
+---------------------------------------
+Evaluation over 10 episodes: 1829.246
+---------------------------------------
+The average performance is : 2059.239276096671  in round  123134
+The average performance is : 2100.0911773360754  in round  123729
+Step  124000
+---------------------------------------
+Evaluation over 10 episodes: 1858.697
+---------------------------------------
+The average performance is : 1474.9687155971135  in round  124211
+The average performance is : 1696.2642635873744  in round  124719
+Step  125000
+---------------------------------------
+Evaluation over 10 episodes: 1777.357
+---------------------------------------
+The average performance is : 2078.0487384959747  in round  125300
+The average performance is : 2323.8972936071523  in round  125947
+Step  126000
+---------------------------------------
+Evaluation over 10 episodes: 2041.719
+---------------------------------------
+The average performance is : 1761.1991829352435  in round  126460
+The average performance is : 1689.3126854471986  in round  126954
+Step  127000
+---------------------------------------
+Evaluation over 10 episodes: 1712.620
+---------------------------------------
+The average performance is : 1976.7227598964043  in round  127493
+The average performance is : 1479.6157129379405  in round  127951
+Step  128000
+---------------------------------------
+Evaluation over 10 episodes: 1795.495
+---------------------------------------
+The average performance is : 3410.18710523099  in round  128927
+Step  129000
+---------------------------------------
+Evaluation over 10 episodes: 2263.366
+---------------------------------------
+The average performance is : 1425.0088641577138  in round  129373
+The average performance is : 841.7028432543326  in round  129664
+Step  130000
+---------------------------------------
+Evaluation over 10 episodes: 3006.712
+---------------------------------------
+The average performance is : 1345.218616405202  in round  130079
+The average performance is : 790.4792215750541  in round  130372
+The average performance is : 564.2236260604376  in round  130593
+The average performance is : 1118.7870011861958  in round  130960
+Step  131000
+---------------------------------------
+Evaluation over 10 episodes: 2015.374
+---------------------------------------
+The average performance is : 1938.9967829979942  in round  131524
+Step  132000
+---------------------------------------
+Evaluation over 10 episodes: 1281.642
+---------------------------------------
+The average performance is : 1761.6382481113226  in round  132069
+The average performance is : 1236.5498394892852  in round  132428
+The average performance is : 295.01276507566047  in round  132560
+Step  133000
+---------------------------------------
+Evaluation over 10 episodes: 2676.172
+---------------------------------------
+The average performance is : 2232.751552785598  in round  133223
+The average performance is : 1737.4543099068826  in round  133740
+Step  134000
+---------------------------------------
+Evaluation over 10 episodes: 2028.549
+---------------------------------------
+The average performance is : 1820.1758792671044  in round  134263
+The average performance is : 1502.7349788268007  in round  134713
+Step  135000
+---------------------------------------
+Evaluation over 10 episodes: 2617.770
+---------------------------------------
+The average performance is : 1900.7470545016706  in round  135291
+The average performance is : 1949.6588321036616  in round  135856
+Step  136000
+---------------------------------------
+Evaluation over 10 episodes: 2935.642
+---------------------------------------
+The average performance is : 2595.0477346120124  in round  136574
+Step  137000
+---------------------------------------
+Evaluation over 10 episodes: 3104.078
+---------------------------------------
+The average performance is : 3657.1799700180954  in round  137574
+Step  138000
+---------------------------------------
+Evaluation over 10 episodes: 2306.418
+---------------------------------------
+The average performance is : 2077.6332192904238  in round  138227
+Step  139000
+---------------------------------------
+Evaluation over 10 episodes: 2668.956
+---------------------------------------
+The average performance is : 3670.3128197355963  in round  139227
+Step  140000
+---------------------------------------
+Evaluation over 10 episodes: 2717.397
+---------------------------------------
+The average performance is : 2923.949008448829  in round  140021
+The average performance is : 1619.705889314795  in round  140524
+Step  141000
+---------------------------------------
+Evaluation over 10 episodes: 2879.945
+---------------------------------------
+The average performance is : 3393.9033108404255  in round  141524
+Step  142000
+---------------------------------------
+Evaluation over 10 episodes: 2494.664
+---------------------------------------
+The average performance is : 2598.349430650304  in round  142268
+The average performance is : 1733.7101201166206  in round  142799
+Step  143000
+---------------------------------------
+Evaluation over 10 episodes: 1572.426
+---------------------------------------
+The average performance is : 1554.146483655602  in round  143255
+The average performance is : 1803.5374269304668  in round  143759
+Step  144000
+---------------------------------------
+Evaluation over 10 episodes: 2648.362
+---------------------------------------
+The average performance is : 3595.3637644698993  in round  144759
+The average performance is : 79.4761794818016  in round  144837
+Step  145000
+---------------------------------------
+Evaluation over 10 episodes: 2857.549
+---------------------------------------
+The average performance is : 2457.7547922144836  in round  145512
+Step  146000
+---------------------------------------
+Evaluation over 10 episodes: 2881.296
+---------------------------------------
+The average performance is : 3245.9725895778433  in round  146394
+The average performance is : 1941.0688476608163  in round  146980
+Step  147000
+---------------------------------------
+Evaluation over 10 episodes: 3369.988
+---------------------------------------
+The average performance is : 1764.917293315135  in round  147507
+Step  148000
+---------------------------------------
+Evaluation over 10 episodes: 3169.492
+---------------------------------------
+The average performance is : 3332.356399594507  in round  148409
+The average performance is : 1726.5086344994006  in round  148961
+Step  149000
+---------------------------------------
+Evaluation over 10 episodes: 2435.955
+---------------------------------------
+The average performance is : 2240.4236895415816  in round  149597
+Step  150000
+---------------------------------------
+Evaluation over 10 episodes: 3213.380
+---------------------------------------
+The average performance is : 3625.958407798933  in round  150597
+Step  151000
+---------------------------------------
+Evaluation over 10 episodes: 2749.241
+---------------------------------------
+The average performance is : 3570.1705241138816  in round  151597
+Step  152000
+---------------------------------------
+Evaluation over 10 episodes: 3130.794
+---------------------------------------
+The average performance is : 2963.178043071668  in round  152437
+Step  153000
+---------------------------------------
+Evaluation over 10 episodes: 1951.029
+---------------------------------------
+The average performance is : 3483.7211783511393  in round  153437
+Step  154000
+---------------------------------------
+Evaluation over 10 episodes: 3055.308
+---------------------------------------
+The average performance is : 2031.8251353165897  in round  154003
+The average performance is : 3503.1192524055823  in round  154961
+Step  155000
+---------------------------------------
+Evaluation over 10 episodes: 3209.813
+---------------------------------------
+The average performance is : 1746.1818364923715  in round  155508
+The average performance is : 409.2114081625688  in round  155748
+Step  156000
+---------------------------------------
+Evaluation over 10 episodes: 3141.936
+---------------------------------------
+The average performance is : 3629.4949152501194  in round  156748
+Step  157000
+---------------------------------------
+Evaluation over 10 episodes: 3365.928
+---------------------------------------
+The average performance is : 3153.6555831288088  in round  157678
+Step  158000
+---------------------------------------
+Evaluation over 10 episodes: 3465.327
+---------------------------------------
+The average performance is : 1909.7169208298315  in round  158224
+The average performance is : 2547.583711381153  in round  158957
+Step  159000
+---------------------------------------
+Evaluation over 10 episodes: 3321.613
+---------------------------------------
+The average performance is : 100.65837976853469  in round  159141
+Step  160000
+---------------------------------------
+Evaluation over 10 episodes: 2213.653
+---------------------------------------
+The average performance is : 3535.4112923539105  in round  160141
+The average performance is : 2582.5172530642185  in round  160889
+Step  161000
+---------------------------------------
+Evaluation over 10 episodes: 2479.762
+---------------------------------------
+The average performance is : 1449.000637964066  in round  161340
+The average performance is : 2083.0301787820076  in round  161927
+Step  162000
+---------------------------------------
+Evaluation over 10 episodes: 3031.826
+---------------------------------------
+The average performance is : 3559.4155452650334  in round  162927
+Step  163000
+---------------------------------------
+Evaluation over 10 episodes: 3159.248
+---------------------------------------
+The average performance is : 3575.4427587164923  in round  163927
+Step  164000
+---------------------------------------
+Evaluation over 10 episodes: 2521.925
+---------------------------------------
+The average performance is : 2803.6257372044843  in round  164734
+Step  165000
+---------------------------------------
+Evaluation over 10 episodes: 2343.484
+---------------------------------------
+The average performance is : 2162.6934052806623  in round  165362
+The average performance is : 1551.660183308076  in round  165868
+Step  166000
+---------------------------------------
+Evaluation over 10 episodes: 2886.112
+---------------------------------------
+The average performance is : 1839.4800269399848  in round  166379
+Step  167000
+---------------------------------------
+Evaluation over 10 episodes: 3588.118
+---------------------------------------
+The average performance is : 2795.8780271962223  in round  167218
+Step  168000
+---------------------------------------
+Evaluation over 10 episodes: 2954.650
+---------------------------------------
+The average performance is : 3528.060433688553  in round  168218
+Step  169000
+---------------------------------------
+Evaluation over 10 episodes: 2378.862
+---------------------------------------
+The average performance is : 3705.244529888564  in round  169217
+The average performance is : 2451.8353551363466  in round  169948
+Step  170000
+---------------------------------------
+Evaluation over 10 episodes: 2446.326
+---------------------------------------
+The average performance is : 3395.8072757646637  in round  170893
+Step  171000
+---------------------------------------
+Evaluation over 10 episodes: 3523.258
+---------------------------------------
+The average performance is : 1842.4878790222833  in round  171421
+The average performance is : 289.6794484588799  in round  171576
+The average performance is : 564.0433244750512  in round  171830
+Step  172000
+---------------------------------------
+Evaluation over 10 episodes: 2894.037
+---------------------------------------
+The average performance is : 1618.550090278472  in round  172321
+The average performance is : 1951.6635886730014  in round  172863
+Step  173000
+---------------------------------------
+Evaluation over 10 episodes: 2773.128
+---------------------------------------
+The average performance is : 3571.969243071611  in round  173863
+Step  174000
+---------------------------------------
+Evaluation over 10 episodes: 2798.266
+---------------------------------------
+The average performance is : 3443.0801393500556  in round  174787
+Step  175000
+---------------------------------------
+Evaluation over 10 episodes: 3368.903
+---------------------------------------
+The average performance is : 2894.7138333017638  in round  175589
+Step  176000
+---------------------------------------
+Evaluation over 10 episodes: 3145.539
+---------------------------------------
+The average performance is : 3614.0306319603337  in round  176589
+Step  177000
+---------------------------------------
+Evaluation over 10 episodes: 3512.349
+---------------------------------------
+The average performance is : 3654.2021417242104  in round  177589
+Step  178000
+---------------------------------------
+Evaluation over 10 episodes: 2887.549
+---------------------------------------
+The average performance is : 1456.8153537408705  in round  178012
+The average performance is : 2547.6820646810734  in round  178701
+Step  179000
+---------------------------------------
+Evaluation over 10 episodes: 3289.198
+---------------------------------------
+The average performance is : 3614.0888324290345  in round  179701
+Step  180000
+---------------------------------------
+Evaluation over 10 episodes: 3256.063
+---------------------------------------
+The average performance is : 3577.8971081853165  in round  180701
+Step  181000
+---------------------------------------
+Evaluation over 10 episodes: 2861.112
+---------------------------------------
+The average performance is : 3882.7548269807476  in round  181701
+Step  182000
+---------------------------------------
+Evaluation over 10 episodes: 2909.979
+---------------------------------------
+The average performance is : 3637.3794661790603  in round  182701
+Step  183000
+---------------------------------------
+Evaluation over 10 episodes: 3552.686
+---------------------------------------
+The average performance is : 1514.8924846901828  in round  183129
+Step  184000
+---------------------------------------
+Evaluation over 10 episodes: 3592.745
+---------------------------------------
+The average performance is : 3672.306022001364  in round  184129
+Step  185000
+---------------------------------------
+Evaluation over 10 episodes: 3584.120
+---------------------------------------
+The average performance is : 3624.0841522034225  in round  185129
+The average performance is : 1561.785523567336  in round  185591
+Step  186000
+---------------------------------------
+Evaluation over 10 episodes: 3379.492
+---------------------------------------
+The average performance is : 3755.195320479456  in round  186590
+Step  187000
+---------------------------------------
+Evaluation over 10 episodes: 3505.172
+---------------------------------------
+The average performance is : 3752.6830920917037  in round  187590
+Step  188000
+---------------------------------------
+Evaluation over 10 episodes: 2921.305
+---------------------------------------
+The average performance is : 3439.918896011732  in round  188550
+Step  189000
+---------------------------------------
+Evaluation over 10 episodes: 3485.227
+---------------------------------------
+The average performance is : 3769.4849719053477  in round  189550
+The average performance is : 322.1210687148511  in round  189704
+Step  190000
+---------------------------------------
+Evaluation over 10 episodes: 3617.224
+---------------------------------------
+The average performance is : 1679.7782231551055  in round  190208
+Step  191000
+---------------------------------------
+Evaluation over 10 episodes: 3637.721
+---------------------------------------
+The average performance is : 3716.2809099309584  in round  191208
+Step  192000
+---------------------------------------
+Evaluation over 10 episodes: 3694.908
+---------------------------------------
+The average performance is : 3745.0964054036026  in round  192208
+The average performance is : 49.26207361951138  in round  192317
+Step  193000
+---------------------------------------
+Evaluation over 10 episodes: 3533.105
+---------------------------------------
+The average performance is : 3640.6099306503547  in round  193317
+Step  194000
+---------------------------------------
+Evaluation over 10 episodes: 3458.652
+---------------------------------------
+The average performance is : 3707.7631486223863  in round  194317
+Step  195000
+---------------------------------------
+Evaluation over 10 episodes: 3192.700
+---------------------------------------
+The average performance is : 3663.0083286942063  in round  195317
+The average performance is : 2294.0436049047985  in round  195977
+Step  196000
+---------------------------------------
+Evaluation over 10 episodes: 3255.157
+---------------------------------------
+The average performance is : 1571.3692452076846  in round  196455
+The average performance is : 1736.1598398019407  in round  196969
+Step  197000
+---------------------------------------
+Evaluation over 10 episodes: 3330.012
+---------------------------------------
+The average performance is : 3688.2147203710024  in round  197969
+Step  198000
+---------------------------------------
+Evaluation over 10 episodes: 3516.053
+---------------------------------------
+The average performance is : 2882.326516319832  in round  198767
+Step  199000
+---------------------------------------
+Evaluation over 10 episodes: 2758.568
+---------------------------------------
+The average performance is : 2895.2660574107176  in round  199587
+Step  200000
+---------------------------------------
+Evaluation over 10 episodes: 3398.837
+---------------------------------------
+Dumping reward...
+Rewards dumped to  results_rewards
+---------------------------------------
+Policy: RCS, Env: Walker2d-v3, Seed: 3
+---------------------------------------
+Config:  {'policy': 'RCS', 'env': 'Walker2d-v3', 'seed': 3, 'start_timesteps': 1000.0, 'eval_freq': 1000, 'max_timesteps': 200001, 'expl_noise': 0.1, 'batch_size': 256, 'discount': 0.99, 'tau': 0.005, 'policy_noise': 0.2, 'noise_clip': 0.5, 'policy_freq': 2, 'save_model': False, 'save_buffer': 0, 'save_memory': False, 'load_model': '', 'device': 'cuda:0', 'save_model_every': 1000000, 'exp_name': 'k2_alpha_01_beta_05', 'ep_len': 1000, 'alpha': 0.1, 'k': 2, 'substeps': 1, 'prioritized': True, 'beta': 0.5, 'mem_dim': 4, 'estimate_q': False, 'results_dir': 'results', 'order': 3, 'grid_num': 5, 'decay': 0.2, 'repair_scope': 1.0, 'state_min': -10, 'state_max': 10, 'mode': 'state_action'}
+Start training...
+Start training...
+Initialize policy
+Configured policy
+Evaluate untrained policy
+---------------------------------------
+Evaluation over 10 episodes: -4.871
+---------------------------------------
+---------------------------------------
+Evaluation over 10 episodes: -4.871
+---------------------------------------
+/home/lizhuo/miniconda/envs/drl/lib/python3.7/site-packages/gym/core.py:173: DeprecationWarning: [33mWARN: Function `env.seed(seed)` is marked as deprecated and will be removed in the future. Please use `env.reset(seed=seed) instead.[0m
+  "Function `env.seed(seed)` is marked as deprecated and will be removed in the future. "
+The average performance is : -2.996552510950896  in round  9
+The average performance is : 1.8743711485944128  in round  48
+The average performance is : 5.198290164884778  in round  76
+The average performance is : 9.769521060566635  in round  108
+The average performance is : 2.003442227355333  in round  124
+The average performance is : 5.066267161238866  in round  143
+The average performance is : -5.21734085444285  in round  154
+The average performance is : 0.46952699075104354  in round  168
+The average performance is : 14.612690175813771  in round  200
+The average performance is : 1.0178555580827744  in round  212
+The average performance is : -0.809888355951952  in round  231
+The average performance is : -3.974350227773997  in round  255
+The average performance is : 3.052895475927879  in round  272
+The average performance is : 1.380124052060466  in round  286
+The average performance is : 4.101243632417807  in round  310
+The average performance is : -3.0004345574033184  in round  334
+The average performance is : -2.4861363256189435  in round  343
+The average performance is : -1.7585698780315593  in round  359
+The average performance is : -1.2485041012350482  in round  372
+The average performance is : -1.5285778381508037  in round  392
+The average performance is : 2.3506243931739763  in round  413
+The average performance is : 0.8110870224104627  in round  428
+The average performance is : 6.5783727790328115  in round  454
+The average performance is : 2.019384450538215  in round  470
+The average performance is : 2.4131706177883188  in round  484
+The average performance is : 0.47551972069876824  in round  499
+The average performance is : -1.6464144669028795  in round  510
+The average performance is : -2.676995765254173  in round  522
+The average performance is : -3.7134054796565  in round  539
+The average performance is : 13.054166660586624  in round  574
+The average performance is : -3.9355206888490564  in round  584
+The average performance is : -3.334334118275726  in round  602
+The average performance is : -8.892460571977313  in round  622
+The average performance is : 1.675422946728229  in round  647
+The average performance is : -8.29968378423719  in round  659
+The average performance is : 3.20207563451702  in round  681
+The average performance is : -6.0424685215242935  in round  697
+The average performance is : -1.591291849465263  in round  715
+The average performance is : -1.3154658224728273  in round  730
+The average performance is : -0.20240068921482868  in round  741
+The average performance is : 1.578034359744833  in round  754
+The average performance is : -3.871220210483479  in round  771
+The average performance is : 5.842117138051218  in round  794
+The average performance is : 4.75394094340012  in round  829
+The average performance is : -0.9082354855146372  in round  843
+The average performance is : -3.589177748571021  in round  857
+The average performance is : -4.013737073479754  in round  876
+The average performance is : 2.5980683881339814  in round  901
+The average performance is : 6.999087585270736  in round  918
+The average performance is : -5.384054497112949  in round  930
+The average performance is : 11.510554346262511  in round  957
+Step  1000
+---------------------------------------
+Evaluation over 10 episodes: -4.251
+---------------------------------------
