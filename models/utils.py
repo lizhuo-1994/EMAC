@@ -247,7 +247,7 @@ class RcsEpisodicReplayBuffer(object):
             self.state_action_list = []
             self.reward_list = []
             policy.abstracter.inspector.sync_scores()
-            policy.abstracter.decay = 1 - step / total_step 
+            
         
         if done_limit:
             dones = [0] * (len(self.ep_state) - 1) + [1]
