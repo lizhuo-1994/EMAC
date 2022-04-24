@@ -50,7 +50,7 @@ class ScoreInspector:
             self.max_state = np.array([self.state_max for i in range(self.state_dim)] + [self.action_max for i in range(self.action_dim)])
 
         self.min_avg_proceed = 0
-        self.max_avg_proceed = 1
+        self.max_avg_proceed = 10
 
         #self.scores = scores
         self.score_avg = 0
@@ -117,11 +117,12 @@ class ScoreInspector:
         new_states_info = dict()
         normal_scale = self.max_avg_proceed - self.min_avg_proceed
 
+        proceed = sum(rewards)
         for i in range(len(abs_states)):
             if i + self.order >= len(abs_states):
                 break
                 
-            proceed = sum(rewards[i+self.order:]) / (len(abs_states) - i - self.order)
+            
             if proceed < self.min_avg_proceed:
                 min_avg_proceed = proceed
             if proceed > self.max_avg_proceed:
@@ -191,6 +192,7 @@ class Abstracter:
             if  time > 1:
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
+                #self.inspector.states_info[pattern]['score'] = self.inspector.states_info[pattern]['score'] * 0.99
 
         return rewards[0]
 
