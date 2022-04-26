@@ -34,7 +34,7 @@
 
 ## 5 Results
 
-   In result_rewards/InvertedPendulum-v2
+   In result_rewards/
 
   
   
