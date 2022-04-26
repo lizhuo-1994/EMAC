@@ -26,7 +26,11 @@
 
 ## 4 Execution:
 
+  * bash scripts/Walker2d-v3/train.sh
+  * bash scripts/Hopper-v3/train.sh
+  * bash scripts/Swimmer-v3/train.sh
   * bash scripts/InvertedPendulum-v2/train.sh
+  * bash scripts/InvertedDoublePendulum-v2/train.sh
 
 ## 5 Results
 
