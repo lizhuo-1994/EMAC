@@ -103,7 +103,10 @@ class EpisodicReplayBuffer(object):
         self.ep_next_state.append(next_state)
         self.ep_reward.append(reward)
 
+        
+
         if done_limit:
+            print(len(self.ep_state[0]), len(self.ep_action[0]), np.min(self.ep_state), np.max(self.ep_state), np.min(self.ep_reward), np.max(self.ep_reward))
             dones = [0] * (len(self.ep_state) - 1) + [1]
 
             # Calculate Q-values
