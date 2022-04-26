@@ -17,7 +17,7 @@
 
 ## 3 Install Mujoco:
 
-  * download [mujoco.tar.gz](https://drive.google.com/file/d/1rNu1hupPVQCL0Cp460tiCVXA55ZkbnH2/view?usp=sharing)
+  * download [mujoco.tar.gz](https://drive.google.com/file/d/1Pi3HWx5ZPe92WxtJ8lEZzI3tPBQ15J8-/view?usp=sharing)
   * tar -zxzf mujoco.tar.gz 
   * mv .mujoco /home/YOURACCOUNT/
   * echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/YOURACCOUNT/.mujoco/mujoco210/bin' >> ~/.bashrc
