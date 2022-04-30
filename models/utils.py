@@ -240,7 +240,10 @@ class RcsEpisodicReplayBuffer(object):
         #self.ep_reward.append(reward)
         
         policy.abstracter.append(list(state) + list(action), reward, done_env)
-        self.state_action_list.append(list(state) + list(action))
+        if policy.abstracter.inspector.mode == 'state':
+            self.state_action_list.append(list(state))
+        elif policy.abstracter.inspector.mode == 'state_action':
+            self.state_action_list.append(list(state) + list(action))
         self.reward_list.append(reward)
         
         if done_env:
