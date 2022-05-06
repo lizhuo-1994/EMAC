@@ -50,7 +50,7 @@ class ScoreInspector:
             self.max_state = np.array([self.state_max for i in range(self.state_dim)] + [self.action_max for i in range(self.action_dim)])
 
         self.min_avg_proceed = 0
-        self.max_avg_proceed = 10
+        self.max_avg_proceed = 50
 
         #self.scores = scores
         self.score_avg = 0
@@ -94,6 +94,7 @@ class ScoreInspector:
             print('min and max proceed', self.min_avg_proceed, self.max_avg_proceed)
             print('############################################################')
             '''
+            
     
     def start_pattern_abstract(self, con_states, rewards):
 
@@ -187,7 +188,7 @@ class Abstracter:
             return rewards[0]
         pattern = '-'.join(abs_pattern)
         score, time = self.inspector.inquery(pattern)
-
+        
         if score != None:
             if  time > 1:
                 delta = (score - self.inspector.score_avg) * self.decay
