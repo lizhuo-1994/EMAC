@@ -190,7 +190,7 @@ class Abstracter:
         score, time = self.inspector.inquery(pattern)
         
         if score != None:
-            if  time > 1:
+            if  time > 0:
                 delta = (score - self.inspector.score_avg) * self.decay
                 rewards[0] += delta
                 #self.inspector.states_info[pattern]['score'] = self.inspector.states_info[pattern]['score'] * 0.99
