@@ -50,7 +50,7 @@ class ScoreInspector:
             self.max_state = np.array([self.state_max for i in range(self.state_dim)] + [self.action_max for i in range(self.action_dim)])
 
         self.min_avg_proceed = 0
-        self.max_avg_proceed = 50
+        self.max_avg_proceed = 100
 
         #self.scores = scores
         self.score_avg = 0
