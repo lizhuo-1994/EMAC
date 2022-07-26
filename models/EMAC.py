@@ -10,13 +10,13 @@ from .nn import Actor, Critic
 class EMAC:
     """Episodic Memory Actor-Critic. """
 
-    def __init__(self, state_dim, action_dim, max_action, discount=0.99, alpha=0.0,
+    def __init__(self, raw_state_dim, action_dim, max_action, discount=0.99, alpha=0.0,
             tau=0.005, device="cuda", log_dir="tb"):
 
-        self.actor = Actor(state_dim, action_dim, max_action).to(device)
+        self.actor = Actor(raw_state_dim, action_dim, max_action).to(device)
         self.actor_target = copy.deepcopy(self.actor)
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters())
-        self.critic = Critic(state_dim, action_dim).to(device)
+        self.critic = Critic(raw_state_dim, action_dim).to(device)
         self.critic_target = copy.deepcopy(self.critic)
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters())
         self.discount = discount
